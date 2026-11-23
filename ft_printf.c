@@ -6,14 +6,13 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 01:06:41 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/23 16:40:45 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/23 16:55:05 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
 #include "ft_printf.h"
-
 
 int	ft_printf(const char *form, ...)
 {
@@ -39,9 +38,10 @@ int	ft_printf(const char *form, ...)
 
 
 
-
+#include <stdio.h>
 
 int	main(void)
 {
     ft_printf("Bonjour %s", "Velvet\n");
+    //printf("Bonjour %s", "Velvet\n");
 }
