@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 01:06:41 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/23 17:01:05 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/23 17:39:52 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ int	ft_printf(const char *form, ...)
 	va_start(args, form);
 	while (form[i])
 	{
-		while ( form[i] != '\0'|| form[i] != '%')
+		if (form[i] == '%' && form[i + 1])
+		{
+			check_conv(form, i, args);
+			i += 2;
+		}
+		else
 		{
 			write(1, &form[i], 1);
 			i++;
-			len++;
 		}
-		len += check_conv(form, i, args);
-		i++;
 	}
-    return(len);
+	va_end(args);
+	return (len);
 }
 
 
@@ -46,6 +49,12 @@ int	ft_printf(const char *form, ...)
 
 int	main(void)
 {
-    ft_printf("Bonjour %s", "Velvet\n");
-    //printf("Bonjour %s", "Velvet\n");
+    //printf("Ma fonction retourne : %d", ft_printf("Bonjour %s", "Velvet\n"));
+    //printf("Bonjour %s, XD, C'est %s, avec un grand %c, qui a %d cadeaux.", "Velvet", "Julie", 'J', 67);
+	ft_printf("Bonjour %s\n", "Velvet");
+	ft_printf("char : %c\n", 'A');
+	ft_printf("int : %d\n", 42);
+	ft_printf("neg : %d\n", -42);
+	ft_printf("min : %d\n", -2147483648);
+	ft_printf("null : %s\n", NULL);
 }
