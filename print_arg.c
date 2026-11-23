@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 16:33:28 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/23 16:53:39 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/23 17:02:25 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ int print_arg(char c, va_list args)
 	if (c == 'c')
 	{
         int chr = va_arg(args, int);
-        write(1, &chr, 1);
-        i++;
+        char *str = ft_itoa(chr);
+        while (str[i])
+        {
+            write(1, &str, 1);
+            i++;
+        }
 	}
 	else if (c == 's')
     {
