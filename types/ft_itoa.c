@@ -6,12 +6,12 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 18:16:37 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/23 16:38:39 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/26 18:50:59 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "ft_printf.h"
+#include "../ft_printf/ft_printf.h"
 
 static char	*ft_itoaa(int value, char *str, int base)
 {

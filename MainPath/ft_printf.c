@@ -6,13 +6,12 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 01:06:41 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/23 17:39:52 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/26 18:50:54 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include <unistd.h>
-#include "ft_printf.h"
+#include "../ft_printf/ft_printf.h"
 
 int	ft_printf(const char *form, ...)
 {
@@ -22,28 +21,13 @@ int	ft_printf(const char *form, ...)
 	i = 0;
 	len = 0;
 	va_start(args, form);
-	while (form[i])
-	{
-		if (form[i] == '%' && form[i + 1])
-		{
-			check_conv(form, i, args);
-			i += 2;
-		}
-		else
-		{
-			write(1, &form[i], 1);
-			i++;
-		}
-	}
+	if (!chk_prc(form))
+		return(ft_putstr(form));
+	else
+		len = bsc_print(form, args);
 	va_end(args);
 	return (len);
 }
-
-
-
-
-
-
 
 #include <stdio.h>
 
