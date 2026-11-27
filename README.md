@@ -76,10 +76,11 @@ To test it, compare the output **and** the return value with the original `print
 
 ## Algorithm and data structures
 
-**Parsing.** `ft_printf` calls `va_start`, then `chk_prc` checks whether the format contains a `%`: if not, the string is simply printed. Otherwise `bsc_print` makes a single left-to-right pass over the format:
+**Parsing.** `ft_printf` first returns `-1` without printing anything if the format is `NULL` or ends with a lone `%` (like glibc). Then `chk_prc` checks whether the format contains a `%`: if not, the string is simply printed. Otherwise `ft_printf` calls `va_start` and `bsc_print` makes a single left-to-right pass over the format:
 
 - a normal character is written directly with `write`;
-- a `%` followed by a character sends that character to `arg_print`, which uses an `if / else if` chain to pick the printing function and fetches the argument with `va_arg`, using the **exact type passed by the caller** (`int` for `%c %d %i`, `unsigned int` for `%u %x %X`, `char *` for `%s`, `void *` for `%p`).
+- a `%` followed by a character sends that character to `arg_print`, which uses an `if / else if` chain to pick the printing function and fetches the argument with `va_arg`, using the **exact type passed by the caller** (`int` for `%c %d %i`, `unsigned int` for `%u %x %X`, `char *` for `%s`, `void *` for `%p`);
+- if that character is not a supported specifier (`check_conv`), it is printed as is, `%` followed by the character, like glibc does for `%k`.
 
 Each function returns the number of characters it wrote, and the values are summed into the return value. **Why:** parsing and printing are separate, so a new conversion only needs one new branch in `arg_print` and one printing function; a single pass is linear and needs no structure to remember the format.
 
