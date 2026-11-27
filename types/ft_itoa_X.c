@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/26 18:16:37 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 14:38:33 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 14:50:51 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int	ft_itoa_unsigndmajx(unsigned int n, int base)
 		return (0);
 	ft_itoaa_unsigndmajx(n, res, base);
 	i = ft_strupper_write(res);
+	free(res);
 	return (i);
 }

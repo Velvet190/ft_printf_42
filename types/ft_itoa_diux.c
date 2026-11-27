@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa(diux).c                                    :+:      :+:    :+:   */
+/*   ft_itoa_diux.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 18:16:37 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 13:51:13 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 14:53:32 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int	ft_itoa_signd(int n, int base)
 	ft_itoaa_signd(n, res, base);
 	while (res[i])
 	{
-		write(1, &res[i], 1);
-		i++;
+		write(1, &res[i++], 1);
 	}
+	free(res);
 	return (i);
 }
 
@@ -110,8 +110,8 @@ int	ft_itoa_unsignd(unsigned int n, int base)
 	ft_itoaa_unsignd(n, res, base);
 	while (res[i])
 	{
-		write(1, &res[i], 1);
-		i++;
+		write(1, &res[i++], 1);
 	}
+	free(res);
 	return (i);
 }

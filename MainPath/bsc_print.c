@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/26 18:13:06 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 14:27:43 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 14:49:03 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	bsc_print(const char *form, va_list args)
 		}
 		else
 		{
-			write(1, &form[i], 1);
+			len += write(1, &form[i], 1);
 			i++;
 		}
 	}
-	return (len + i);
+	return (len);
 }
