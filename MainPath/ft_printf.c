@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 01:06:41 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 21:10:32 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 21:15:52 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_printf(const char *form, ...)
 	int		len;
 
 	len = 0;
-	if (!form || !bad_end(form))
+	if (!form || bad_end(form))
 		return (-1);
 	if (!chk_prc((char *)form))
 		return (ft_putstr((char *)form));
