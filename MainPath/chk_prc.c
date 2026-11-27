@@ -6,20 +6,22 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/26 17:59:42 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/26 18:50:51 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 14:36:07 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
-int chk_prc(char *str)
+int	chk_prc(char *str)
 {
-    int i = 0;
-    while (c[i])
-    {
-        if (str[i] == '%')
-            return(1);
-        i++;
-    }
-    return (0);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '%')
+			return (1);
+		i++;
+	}
+	return (0);
 }

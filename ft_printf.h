@@ -6,23 +6,27 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 16:36:45 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/26 19:11:43 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 14:40:12 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_ARG_H
-# define PRINT_ARG_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <unistd.h>
+# include <stdarg.h>
+# include <unistd.h>
 
 int	ft_putstr(char *s);
 int	ft_putchar(char c);
-char	*ft_itoa(int n);
+int	ft_itoa(int n, int base);
+int	ft_itoa_unsignd(unsigned int n, int base);
+int	ft_itoa_unsigndmajx(unsigned int n, int base);
+int	ft_itoa_signd(int n, int base);
+int	ft_adrprt(void *adr);
 int	ft_printf(const char *form, ...);
-int chk_prc(char *str);
-int check_conv(char c);
-int	bsc_print(const char *form, args);
-int arg_print(char c, va_list args);
+int	chk_prc(char *str);
+int	check_conv(char c);
+int	bsc_print(const char *form, va_list args);
+int	arg_print(char c, va_list args);
 
 #endif
