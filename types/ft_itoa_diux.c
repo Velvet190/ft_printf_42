@@ -6,12 +6,13 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 18:16:37 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 15:22:41 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 20:50:14 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static char	*ft_itoaa_signd(int value, char *str, int base)
 {

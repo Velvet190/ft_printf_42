@@ -6,12 +6,13 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/26 18:16:37 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 15:31:00 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 20:50:26 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static char	*ft_itoaa_unsigndmajx(unsigned long int value, char *str,
 		unsigned int base)

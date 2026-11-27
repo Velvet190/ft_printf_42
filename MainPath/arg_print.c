@@ -6,14 +6,12 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 16:33:28 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 20:30:24 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 20:49:52 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdarg.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 int	arg_print(char c, va_list args)
 {

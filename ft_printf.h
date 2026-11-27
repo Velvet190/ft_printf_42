@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 16:36:45 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 20:38:57 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 20:49:41 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <unistd.h>
 
 int	ft_putstr(char *s);
 int	ft_putchar(char c);
