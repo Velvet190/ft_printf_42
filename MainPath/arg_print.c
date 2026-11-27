@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 16:33:28 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 14:37:24 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 20:30:24 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	arg_print(char c, va_list args)
 	else if (c == 'u')
 		len += ft_itoa_unsignd(va_arg(args, unsigned int), 10);
 	else if (c == 'x')
-		len += ft_itoa_unsignd(va_arg(args, unsigned long int), 16);
+		len += ft_itoa_unsignd(va_arg(args, unsigned int), 16);
 	else if (c == 'X')
-		len += ft_itoa_unsigndmajx(va_arg(args, unsigned long int), 16);
+		len += ft_itoa_unsigndmajx(va_arg(args, unsigned int), 16);
 	else if (c == '%')
 		len += ft_putchar('%');
 	return (len);
