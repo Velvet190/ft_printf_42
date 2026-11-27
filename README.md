@@ -1,3 +1,5 @@
+*This project has been created as part of the 42 curriculum by vlaval-a*
+
 # ft_printf
 
 A custom implementation of the C standard library's `printf()` function, developed as part of the 42 School curriculum.
