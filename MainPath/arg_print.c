@@ -6,18 +6,30 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 16:33:28 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 20:49:52 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 20:59:49 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdarg.h>
 
+static int	print_unknown(char c)
+{
+	int	len;
+
+	len = 0;
+	len += ft_putchar('%');
+	len += ft_putchar(c);
+	return (len);
+}
+
 int	arg_print(char c, va_list args)
 {
 	int	len;
 
 	len = 0;
+	if (!check_conv(c))
+		return (print_unknown(c));
 	if (c == 'c')
 		len += ft_putchar((char)va_arg(args, int));
 	else if (c == 's')
