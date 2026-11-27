@@ -4,150 +4,101 @@
 
 ## Description
 
-**ft_printf** is a re-implementation of the C standard library function `printf()`, written in C and packaged as a static library, `libftprintf.a`.
-
-The goal of the project is to learn how **variadic functions** work in C (`<stdarg.h>`) and to build a well-structured, extensible code base that parses a format string and prints formatted output through `write()`.
-
-Prototype:
+**ft_printf** is a re-implementation of the C function `printf()`, packaged as a static library (`libftprintf.a`). The goal is to learn how **variadic functions** work in C (`<stdarg.h>`) and to write a clean, extensible format-string parser that prints through `write()`.
 
 ```c
 int ft_printf(const char *, ...);
 ```
 
-The function returns the number of characters printed, like the original `printf()`. As required by the subject, the buffer management of the original `printf()` is **not** implemented: output is written directly with `write()`.
-
-### Supported conversions
+It returns the number of characters printed (or `-1` if the format string is `NULL`). As required by the subject, the buffer management of the original `printf()` is **not** implemented: everything is written directly with `write()`.
 
 | Specifier | Output |
 |:---:|---|
 | `%c` | A single character |
 | `%s` | A string (`(null)` if the pointer is `NULL`) |
-| `%p` | A `void *` pointer in hexadecimal, prefixed with `0x` (`(nil)` if `NULL`, like glibc on Linux) |
-| `%d` | A signed decimal integer |
-| `%i` | A signed decimal integer |
+| `%p` | A `void *` in hexadecimal, prefixed with `0x` (`(nil)` if `NULL`, as glibc does on Linux) |
+| `%d` `%i` | A signed decimal integer |
 | `%u` | An unsigned decimal integer |
-| `%x` | An unsigned integer in lowercase hexadecimal |
-| `%X` | An unsigned integer in uppercase hexadecimal |
-| `%%` | A literal percent sign |
+| `%x` `%X` | An unsigned integer in lowercase / uppercase hexadecimal |
+| `%%` | A percent sign |
 
-Flags, field width, precision and length modifiers (the bonus part) are **not** implemented.
+Flags, width, precision and length modifiers (bonus) are **not** implemented.
 
-### Project structure
+### Repository content
 
 ```text
 .
 ├── Makefile
 ├── README.md
-├── ft_printf.h
+├── ft_printf.h          # prototypes of the whole project
 ├── MainPath/
-│   ├── ft_printf.c     # entry point (va_start / va_end)
-│   ├── bsc_print.c     # format string parsing loop
-│   └── arg_print.c     # dispatch of a conversion to its printing function
+│   ├── ft_printf.c      # entry point: va_start / va_end
+│   ├── chk_prc.c        # checks whether the format contains a '%'
+│   ├── bsc_print.c      # format string parsing loop
+│   ├── arg_print.c      # dispatches a conversion to its printing function
+│   └── check_conv.c     # checks that a character is a supported specifier
 └── types/
-    ├── ft_putchar.c    # %c, %%
-    ├── ft_putstr.c     # %s
-    ├── ft_adrprt.c     # %p
-    ├── ft_itoa_diux.c  # %d, %i, %u, %x
-    └── ft_itoa_X.c     # %X
+    ├── ft_putchar.c     # %c and %%
+    ├── ft_putstr.c      # %s
+    ├── ft_adrprt.c      # %p
+    ├── ft_itoa_diux.c   # %d, %i, %u, %x
+    └── ft_itoa_X.c      # %X
 ```
 
 ## Instructions
 
-### Compilation
-
-The library is compiled with `cc` and the flags `-Wall -Wextra -Werror`:
+Build the library (compiled with `cc -Wall -Wextra -Werror`, archived with `ar`):
 
 ```bash
-make
+make          # creates libftprintf.a at the root, without useless relinking
+make clean    # removes the object files
+make fclean   # removes the object files and libftprintf.a
+make re       # fclean + all
 ```
 
-This creates `libftprintf.a` at the root of the repository, using `ar`.
-
-| Command | Effect |
-|---|---|
-| `make` / `make all` | Builds `libftprintf.a` (no unnecessary relinking) |
-| `make clean` | Removes the object files |
-| `make fclean` | Removes the object files and `libftprintf.a` |
-| `make re` | Rebuilds everything from scratch |
-
-### Usage
-
-Include the header and link the library:
+Use it in your own program:
 
 ```c
 #include "ft_printf.h"
 
 int main(void)
 {
-	ft_printf("Hello %s, you have %d new messages (id: %x)\n", "world", 42, 255);
+	ft_printf("Hello %s, %d messages, id: %x\n", "world", 42, 255);
 	return (0);
 }
 ```
 
 ```bash
-cc main.c -I. -L. -lftprintf -o program
-./program
+cc main.c -I. -L. -lftprintf -o program && ./program
 ```
 
-### Testing
-
-You can compare `ft_printf` against the original `printf` on the same arguments, checking both the printed text and the returned value:
-
-```c
-int a = printf("%d %x %s|\n", -42, 255, "abc");
-int b = ft_printf("%d %x %s|\n", -42, 255, "abc");
-/* a and b must be equal, and the two lines must be identical */
-```
+To test it, compare the output **and** the return value with the original `printf()` on the same arguments.
 
 ## Algorithm and data structures
 
-### Overall algorithm
+**Parsing.** `ft_printf` calls `va_start`, then `chk_prc` checks whether the format contains a `%`: if not, the string is simply printed. Otherwise `bsc_print` makes a single left-to-right pass over the format:
 
-The implementation is a single left-to-right pass over the format string, with no intermediate buffer:
+- a normal character is written directly with `write`;
+- a `%` followed by a character sends that character to `arg_print`, which uses an `if / else if` chain to pick the printing function and fetches the argument with `va_arg`, using the **exact type passed by the caller** (`int` for `%c %d %i`, `unsigned int` for `%u %x %X`, `char *` for `%s`, `void *` for `%p`).
 
-1. `ft_printf` initializes the `va_list` with `va_start`, calls the parser, then releases it with `va_end`.
-2. `bsc_print` walks through the format string one character at a time:
-   - a normal character is written directly with `write(1, ..., 1)`;
-   - a `%` followed by a character consumes both and hands the conversion character to `arg_print`.
-3. `arg_print` selects the right function for the conversion character and fetches the matching argument with `va_arg`, using the **exact type that the caller passed** (`int` for `%c`, `%d`, `%i`; `unsigned int` for `%u`, `%x`, `%X`; `char *` for `%s`; `void *` for `%p`).
-4. Every printing function returns the number of characters it wrote, and these values are summed to produce the return value of `ft_printf`.
+Each function returns the number of characters it wrote, and the values are summed into the return value. **Why:** parsing and printing are separate, so a new conversion only needs one new branch in `arg_print` and one printing function; a single pass is linear and needs no structure to remember the format.
 
-**Why this design:** parsing and printing are separated, so adding a new conversion only means adding one branch in `arg_print` and one printing function, without touching the parser. A single pass over the string is linear in the length of the output and needs no dynamic structure to remember the format.
+**Number conversion.** `ft_itoa_signd` (`%d %i`), `ft_itoa_unsignd` (`%u %x`, and `%p` through `ft_adrprt`) and `ft_itoa_unsigndmajx` (`%X`) use the same method, parameterized by the base:
 
-### Number conversion
+1. count the digits by dividing by the base (plus one slot for `0` or the `-` sign);
+2. `malloc` exactly that length + 1;
+3. fill the string recursively: the function calls itself on `value / base` first, then writes the digit, so the most significant digit comes first without reversing the string;
+4. `write` it, `free` it, and return its length.
 
-All integer conversions share the same method, parameterized by the base (10 or 16):
+Specific choices: signed values go through a `long` before being negated so that `INT_MIN` works; `%X` builds the lowercase string then converts it to uppercase before writing; `%p` uses an `unsigned long` (64 bits) and prints `0x` + hexadecimal, or `(nil)` for `NULL`.
 
-1. **Count the digits** by dividing the value by the base until it reaches 0 (one extra character is reserved for `0` and for the `-` sign of negative numbers).
-2. **Allocate** a string of exactly that length + 1 with `malloc`.
-3. **Fill it recursively**: the function calls itself on `value / base` first, then writes the digit `value % base`, so the most significant digit ends up first without needing to reverse the string.
-4. **Write** the string with `write`, **free** it, and return its length.
-
-Specific choices:
-
-- Signed numbers are converted through a `long` before being negated, so that `INT_MIN` (whose absolute value does not fit in an `int`) is handled correctly.
-- `%X` reuses the lowercase conversion, then switches the letters to uppercase before writing them.
-- `%p` converts the pointer to an `unsigned long` (64 bits on the target platform), prints `0x` followed by its hexadecimal form, and prints `(nil)` for a `NULL` pointer, which is what glibc does.
-- `%s` prints `(null)` when it receives a `NULL` pointer, which also matches glibc.
-
-**Data structure:** the only data structure is a temporary heap-allocated character array, sized exactly for the number to print. It is freed before the function returns, so there is no memory leak. Choosing the exact size avoids both overflows and any need for a fixed-size buffer. The conversions themselves are recognised with a simple `if / else if` chain on a single character, which is enough for nine specifiers and easy to read.
+**Data structure.** The only structure is a temporary heap-allocated `char` array sized exactly for the number, freed before the function returns (no leak, no overflow, no fixed-size buffer).
 
 ## Resources
 
-### References
-
-- `man 3 printf`: behavior and format specification of the original function
-- `man 3 stdarg`: `va_start`, `va_arg`, `va_copy`, `va_end`
-- `man 2 write`: the system call used for all output
+- `man 3 printf`, `man 3 stdarg`, `man 2 write`
 - [GNU C Library manual, "Variadic Functions"](https://www.gnu.org/software/libc/manual/html_node/Variadic-Functions.html)
-- ISO/IEC 9899 (C standard), section on `<stdarg.h>`
+- ISO/IEC 9899 (C standard), `<stdarg.h>`
 - The 42 Norm
 
-### Use of AI
-
-AI (Claude) was used for the following tasks only:
-
-- reviewing the project against the subject (Norm, Makefile rules, required files, README requirements) and pointing out problems such as the wrong `va_arg` type for `%x` and `%X`;
-- helping to write and structure this README.
-
-The code of the library itself was written by me, and I tested and debugged it by comparing it with the original `printf()`.
+**Use of AI.** AI (Claude) was used to review the project against the subject (Norm, Makefile, required files, README) and to help write and structure this README. The code of the library was written by me and tested by comparing it with the original `printf()`.

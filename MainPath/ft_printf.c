@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 01:06:41 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 14:49:12 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 20:37:13 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ int	ft_printf(const char *form, ...)
 	int		len;
 
 	len = 0;
-	va_start(args, form);
 	if (!form)
 		return (-1);
 	if (!chk_prc((char *)form))
 		return (ft_putstr((char *)form));
 	else
+	{
+		va_start(args, form);
 		len = bsc_print(form, args);
+	}
 	va_end(args);
 	return (len);
 }

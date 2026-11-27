@@ -23,9 +23,6 @@ OBJECTS = $(SOURCES:.c=.o)
 
 all: $(NAME)
 
-test: $(OBJECTS)
-	$(CC) $(CFLAGS) -I. main.c $(OBJECTS) -o test
-
 $(NAME): $(OBJECTS)
 	$(AR) $(ARFLAGS) $@ $^
 
@@ -40,4 +37,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re
