@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 18:16:37 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 14:53:32 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 15:22:41 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ int	ft_itoa_signd(int n, int base)
 	return (i);
 }
 
-int	ft_itoa_unsignd(unsigned int n, int base)
+int	ft_itoa_unsignd(unsigned long int n, int base)
 {
-	size_t	len;
-	long	val;
-	char	*res;
-	int		i;
+	size_t				len;
+	unsigned long int	val;
+	char				*res;
+	int					i;
 
 	i = 0;
 	val = n;

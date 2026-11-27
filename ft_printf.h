@@ -6,7 +6,7 @@
 /*   By: vlaval-a <vlaval-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 16:36:45 by vlaval-a          #+#    #+#             */
-/*   Updated: 2026/11/27 14:40:12 by vlaval-a         ###   ########.fr       */
+/*   Updated: 2026/11/27 15:23:56 by vlaval-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int	ft_putstr(char *s);
 int	ft_putchar(char c);
 int	ft_itoa(int n, int base);
-int	ft_itoa_unsignd(unsigned int n, int base);
+int	ft_itoa_unsignd(unsigned long int n, int base);
 int	ft_itoa_unsigndmajx(unsigned int n, int base);
 int	ft_itoa_signd(int n, int base);
 int	ft_adrprt(void *adr);
